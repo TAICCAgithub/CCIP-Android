@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/filterSheet"
-        android:name="app.opass.ccip.ui.schedule.ScheduleFilterFragment"
+        android:name="tw.taicca.tccf.ui.schedule.ScheduleFilterFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
