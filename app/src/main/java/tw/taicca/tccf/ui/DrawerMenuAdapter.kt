@@ -76,9 +76,9 @@ class DrawerMenuAdapter(
 
                         titleView.text = feature.displayText.findBestMatch(context)
                         launchIconView?.isGone = !item.shouldShowLaunchIcon
-                        if (item.iconDrawable != null) return iconView.setImageDrawable(getDrawable(item.iconDrawable))
                         iconView.setImageDrawable(null)
                         Picasso.get().load(feature.icon).into(iconView)
+                        if (item.iconDrawable != null) return iconView.setImageDrawable(getDrawable(item.iconDrawable))
                     }
                 }
             }
