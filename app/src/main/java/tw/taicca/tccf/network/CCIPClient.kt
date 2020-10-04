@@ -26,9 +26,9 @@ class CCIPClient {
         }
 
         interface CCIPService {
-            @GET("/status")
+            @GET("/app/Schedule/{token}")
             fun status(
-                @Query("token") token: String?
+                @Path("token") token: String?
             ): Call<Attendee>
 
             @GET("/use/{scenario}")
