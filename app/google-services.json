@@ -1,39 +1,37 @@
 {
   "project_info": {
-    "project_number": "1003222886889",
-    "firebase_url": "https://opass-8b7db.firebaseio.com",
-    "project_id": "opass-8b7db",
-    "storage_bucket": "opass-8b7db.appspot.com"
+    "project_number": "1051993406933",
+    "firebase_url": "https://tccf-app.firebaseio.com",
+    "project_id": "tccf-app",
+    "storage_bucket": "tccf-app.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1003222886889:android:d5979168865b5f60",
+        "mobilesdk_app_id": "1:1051993406933:android:5456b64ab423738e7d915c",
         "android_client_info": {
-          "package_name": "app.opass.ccip"
+          "package_name": "tw.taicca.tccf"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1003222886889-hpc1u6schefhpdckeu9ameemefa5hdtm.apps.googleusercontent.com",
+          "client_id": "1051993406933-644pc9acojsho7if70sbjpo8854h0sjs.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA4iYw8oeHuDgYlr1UVkvNR2VjYiciXt5U"
+          "current_key": "AIzaSyCcC9BAAU5TSodgo_5tJvXcxUTsMCmHXLM"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1051993406933-644pc9acojsho7if70sbjpo8854h0sjs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }
