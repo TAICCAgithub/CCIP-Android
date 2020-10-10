@@ -17,6 +17,10 @@ object PreferenceUtil {
     private const val PREF_SCHEDULE_SCHEDULE = "schedule"
     private const val PREF_SCHEDULE_STARS = "stars"
 
+    private const val PREF_SCHEDULE1 = "schedule1"
+    private const val PREF_SCHEDULE_SCHEDULE1 = "schedule1"
+    private const val PREF_SCHEDULE_STARS1 = "stars1"
+
     fun setCurrentEvent(context: Context, eventConfig: EventConfig) {
         context.getSharedPreferences(PREF_EVENT, Context.MODE_PRIVATE)
             .edit(true) { putString(PREF_CURRENT_EVENT, JsonUtil.toJson(eventConfig)) }
@@ -84,6 +88,42 @@ object PreferenceUtil {
         val sharedPreferences = context.getSharedPreferences(PREF_SCHEDULE_STARS, Context.MODE_PRIVATE)
         return try {
             sharedPreferences.getStringSet(getCurrentEvent(context).eventId + PREF_SCHEDULE_STARS, emptySet())!!
+                .toList()
+        } catch (t: Throwable) {
+            emptyList<String>().also { saveStarredIds(context, it) }
+        }
+    }
+
+    fun saveSchedule1(context: Context, scheduleJson: String) {
+        context.getSharedPreferences(PREF_SCHEDULE1, Context.MODE_PRIVATE)
+            .edit(true) { putString(getCurrentEvent(context).eventId + PREF_SCHEDULE_SCHEDULE1, scheduleJson) }
+    }
+
+    fun loadSchedule1(context: Context): ConfSchedule? {
+        val scheduleJson = loadRawSchedule1(context)
+
+        return try {
+            JsonUtil.fromJson(scheduleJson, ConfSchedule::class.java)
+        } catch (t: Throwable) {
+            saveSchedule(context, "{}")
+            JsonUtil.fromJson("{}", ConfSchedule::class.java)
+        }
+    }
+
+    fun loadRawSchedule1(context: Context): String {
+        val prefs = context.getSharedPreferences(PREF_SCHEDULE1, Context.MODE_PRIVATE)
+        return prefs.getString(getCurrentEvent(context).eventId + PREF_SCHEDULE_SCHEDULE1, "{}")!!
+    }
+
+    fun saveStarredIds1(context: Context, sessionIds: List<String>) {
+        context.getSharedPreferences(PREF_SCHEDULE_STARS1, Context.MODE_PRIVATE)
+            .edit { putStringSet(getCurrentEvent(context).eventId + PREF_SCHEDULE_STARS1, sessionIds.toSet()) }
+    }
+
+    fun loadStarredIds1(context: Context): List<String> {
+        val sharedPreferences = context.getSharedPreferences(PREF_SCHEDULE_STARS1, Context.MODE_PRIVATE)
+        return try {
+            sharedPreferences.getStringSet(getCurrentEvent(context).eventId + PREF_SCHEDULE_STARS1, emptySet())!!
                 .toList()
         } catch (t: Throwable) {
             emptyList<String>().also { saveStarredIds(context, it) }
