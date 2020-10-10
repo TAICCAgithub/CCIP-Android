@@ -250,15 +250,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         drawerMenuAdapter = DrawerMenuAdapter(this, filteredFeatures, ::onDrawerItemClick)
         drawerMenu.adapter = drawerMenuAdapter
         drawerMenu.layoutManager = LinearLayoutManager(this)
-        navigationView.getHeaderView(0).findViewById<RelativeLayout>(R.id.nav_header_info)
-            .setOnClickListener { headerView ->
-                drawerMenuAdapter.apply {
-                    shouldShowIdentities = !shouldShowIdentities
-                    headerView.findViewById<ImageView>(R.id.identities_shown_indicator)
-                        .animate()
-                        .rotation(if (shouldShowIdentities) 180F else 0F)
-                }
-            }
+//        navigationView.getHeaderView(0).findViewById<RelativeLayout>(R.id.nav_header_info)
+//            .setOnClickListener { headerView ->
+//                drawerMenuAdapter.apply {
+//                    shouldShowIdentities = !shouldShowIdentities
+//                    headerView.findViewById<ImageView>(R.id.identities_shown_indicator)
+//                        .animate()
+//                        .rotation(if (shouldShowIdentities) 180F else 0F)
+//                }
+//            }
     }
 
     private fun onDrawerItemClick(item: Any) {
