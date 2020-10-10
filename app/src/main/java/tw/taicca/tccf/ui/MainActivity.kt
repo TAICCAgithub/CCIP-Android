@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -47,6 +46,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import tw.taicca.tccf.extension.getFastPassUrl
+import tw.taicca.tccf.network.CCIPClient
 import kotlin.coroutines.CoroutineContext
 
 private const val STATE_ACTION_BAR_TITLE = "ACTION_BAR_TITLE"
@@ -148,6 +149,26 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 }
             } catch (t: Throwable) {
                 t.printStackTrace()
+            }
+        }
+
+        val token = PreferenceUtil.getToken(mActivity)
+        val baseUrl = event.getFastPassUrl() ?: ""
+        if (!baseUrl.isEmpty() && token != null) {
+            launch {
+                try {
+                    val response = CCIPClient.withBaseUrl(baseUrl).status(token).asyncExecute()
+                    when {
+                        response.isSuccessful -> {
+                            val attendee = response.body()!!
+                            val sessionIds = PreferenceUtil.loadStarredIds(mActivity).toMutableList()
+                            sessionIds.addAll(attendee.registered)
+                            PreferenceUtil.saveStarredIds(mActivity, sessionIds)
+                        }
+                    }
+                } catch (t: Throwable) {
+
+                }
             }
         }
     }
