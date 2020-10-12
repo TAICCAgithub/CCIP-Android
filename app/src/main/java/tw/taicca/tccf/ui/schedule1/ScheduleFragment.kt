@@ -68,11 +68,7 @@ class ScheduleFragment : Fragment() {
             val shouldShowEmptyView = sessionsMap != null && grouped.isEmpty()
             val confSpansMultipleDay = sessionsMap?.size?.let { size -> size > 1 } ?: false
             emptyView.isVisible = shouldShowEmptyView
-            emptyView.text = if (confSpansMultipleDay) {
-                getString(R.string.no_matching_sessions_multiple_day)
-            } else {
-                getString(R.string.no_matching_sessions)
-            }
+            emptyView.text = getString(R.string.meeting_empty)
         }
         vm.shouldShowSearchPanel
             .distinctUntilChanged()
