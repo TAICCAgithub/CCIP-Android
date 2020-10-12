@@ -140,6 +140,7 @@ class DrawerMenuAdapter(
             private fun getIconByType(type: FeatureType): Int? = when (type) {
                 FeatureType.FAST_PASS -> R.drawable.ic_local_activity_black_48dp
                 FeatureType.SCHEDULE -> R.drawable.ic_event_note_black_48dp
+                FeatureType.SCHEDULE1 -> R.drawable.ic_event_note_black_48dp
                 FeatureType.ANNOUNCEMENT -> R.drawable.ic_announcement_black_48dp
                 FeatureType.PUZZLE -> R.drawable.ic_extension_black_24dp
                 FeatureType.TICKET -> R.drawable.qr_code

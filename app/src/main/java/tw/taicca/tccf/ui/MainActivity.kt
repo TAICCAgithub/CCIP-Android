@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -47,6 +46,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import tw.taicca.tccf.extension.getFastPassUrl
+import tw.taicca.tccf.network.CCIPClient
 import kotlin.coroutines.CoroutineContext
 
 private const val STATE_ACTION_BAR_TITLE = "ACTION_BAR_TITLE"
@@ -150,6 +151,26 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 t.printStackTrace()
             }
         }
+
+        val token = PreferenceUtil.getToken(mActivity)
+        val baseUrl = event.getFastPassUrl() ?: ""
+        if (!baseUrl.isEmpty() && token != null) {
+            launch {
+                try {
+                    val response = CCIPClient.withBaseUrl(baseUrl).status(token).asyncExecute()
+                    when {
+                        response.isSuccessful -> {
+                            val attendee = response.body()!!
+                            val sessionIds = PreferenceUtil.loadStarredIds(mActivity).toMutableList()
+                            sessionIds.addAll(attendee.registered)
+                            PreferenceUtil.saveStarredIds(mActivity, sessionIds)
+                        }
+                    }
+                } catch (t: Throwable) {
+
+                }
+            }
+        }
     }
 
     override fun onResume() {
@@ -250,15 +271,15 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         drawerMenuAdapter = DrawerMenuAdapter(this, filteredFeatures, ::onDrawerItemClick)
         drawerMenu.adapter = drawerMenuAdapter
         drawerMenu.layoutManager = LinearLayoutManager(this)
-        navigationView.getHeaderView(0).findViewById<RelativeLayout>(R.id.nav_header_info)
-            .setOnClickListener { headerView ->
-                drawerMenuAdapter.apply {
-                    shouldShowIdentities = !shouldShowIdentities
-                    headerView.findViewById<ImageView>(R.id.identities_shown_indicator)
-                        .animate()
-                        .rotation(if (shouldShowIdentities) 180F else 0F)
-                }
-            }
+//        navigationView.getHeaderView(0).findViewById<RelativeLayout>(R.id.nav_header_info)
+//            .setOnClickListener { headerView ->
+//                drawerMenuAdapter.apply {
+//                    shouldShowIdentities = !shouldShowIdentities
+//                    headerView.findViewById<ImageView>(R.id.identities_shown_indicator)
+//                        .animate()
+//                        .rotation(if (shouldShowIdentities) 180F else 0F)
+//                }
+//            }
     }
 
     private fun onDrawerItemClick(item: Any) {
@@ -284,6 +305,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                 val fragment = when (feature.feature) {
                     FeatureType.FAST_PASS -> FastPassFragment()
                     FeatureType.SCHEDULE -> ScheduleTabFragment.newInstance(feature.url!!)
+                    FeatureType.SCHEDULE1 -> tw.taicca.tccf.ui.schedule1.ScheduleTabFragment.newInstance(feature.url!!.replace("{token}", PreferenceUtil.getToken(mActivity) ?: ""))
                     FeatureType.ANNOUNCEMENT -> AnnouncementFragment.newInstance(feature.url!!)
                     FeatureType.TICKET -> MyTicketFragment()
                     FeatureType.PUZZLE -> PuzzleFragment.newInstance(feature.url!!)
@@ -357,6 +379,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         return when (f.feature) {
             FeatureType.FAST_PASS,
             FeatureType.SCHEDULE,
+            FeatureType.SCHEDULE1,
             FeatureType.ANNOUNCEMENT,
             FeatureType.PUZZLE -> f.url != null
             else -> true

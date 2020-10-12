@@ -22,6 +22,8 @@ enum class FeatureType(val type: String) {
     FAST_PASS("fastpass"),
     @SerializedName("schedule")
     SCHEDULE("schedule"),
+    @SerializedName("schedule1")
+    SCHEDULE1("schedule1"),
     @SerializedName("announcement")
     ANNOUNCEMENT("announcement"),
     @SerializedName("puzzle")

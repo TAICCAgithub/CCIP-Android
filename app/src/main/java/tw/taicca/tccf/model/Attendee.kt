@@ -9,5 +9,6 @@ data class Attendee(
     var attr: JsonElement,
     var firstUse: Int,
     var role: String,
-    var scenarios: ArrayList<Scenario>
+    var scenarios: ArrayList<Scenario>,
+    var registered: ArrayList<String>
 )
