@@ -36,6 +36,14 @@
                     android:host="taiccagithub.github.io"
                     android:scheme="https"
                     android:pathPrefix="/open" />
+                <data
+                    android:host="tccf-app.web.app"
+                    android:scheme="http"
+                    android:pathPrefix="/open" />
+                <data
+                    android:host="tccf-app.web.app"
+                    android:scheme="https"
+                    android:pathPrefix="/open" />
             </intent-filter>
         </activity>
         <activity
