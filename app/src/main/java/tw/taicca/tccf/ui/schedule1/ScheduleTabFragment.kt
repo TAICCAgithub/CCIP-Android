@@ -239,7 +239,8 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         val ready = vm.isScheduleReady.value == true
-        menu.findItem(R.id.search).isVisible = ready
+        val hasSession = vm.sessionsGroupedByDate.value?.keys?.isNotEmpty() == true
+        menu.findItem(R.id.search).isVisible = ready && hasSession
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
