@@ -87,10 +87,6 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
                 }
                 requireActivity().invalidateOptionsMenu()
             }
-        vm.shouldShowFab.observe(viewLifecycleOwner) { show ->
-            if (show) binding.fab.show()
-            else binding.fab.hide()
-        }
 
         binding.searchPanel.run {
             val listener = object : ViewTreeObserver.OnGlobalLayoutListener {
