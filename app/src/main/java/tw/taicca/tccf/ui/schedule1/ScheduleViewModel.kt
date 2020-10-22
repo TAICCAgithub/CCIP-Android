@@ -98,17 +98,6 @@ class ScheduleViewModel(application: Application, stateHandle: SavedStateHandle)
         addSource(showStarredOnly) { update() }
         addSource(selectedTagIds) { update() }
     }
-    val shouldShowFab = MediatorLiveData<Boolean>().apply {
-        val update = {
-            val scheduleReady = isScheduleReady.value ?: false
-            val starredOnly = showStarredOnly.value ?: false
-            val hasSelectedTags = selectedTagIds.value?.isNotEmpty() ?: false
-            value = scheduleReady && !starredOnly && !hasSelectedTags
-        }
-        addSource(isScheduleReady) { update() }
-        addSource(showStarredOnly) { update() }
-        addSource(selectedTagIds) { update() }
-    }
 
     init {
         viewModelScope.launch {
