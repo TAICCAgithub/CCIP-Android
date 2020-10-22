@@ -153,6 +153,8 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
 
         launch {
             binding.swipeContainer.isRefreshing = true
+
+            val cachedSchedule = PreferenceUtil.loadRawSchedule1(mActivity).trim()
             try {
                 val client = OkHttpClient()
                 val request = Request.Builder()
@@ -163,12 +165,11 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
                         // Strings that end with \n may cause problem with SharedPreferences. Trim
                         // first for safety.
                         // See https://issuetracker.google.com/issues/37032278
-                        val cached = PreferenceUtil.loadRawSchedule1(mActivity).trim()
                         val new = withContext(Dispatchers.IO) { body!!.string().trim() }
                         // try to parse first
                         withContext(Dispatchers.Default) { JsonUtil.GSON.fromJson(new, ConfSchedule::class.java) }
 
-                        if (cached != new) {
+                        if (cachedSchedule != new) {
                             PreferenceUtil.saveSchedule1(mActivity, new)
                             vm.reloadSchedule()
                         }
@@ -176,6 +177,7 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
                         Snackbar.make(binding.root, R.string.cannot_load_schedule, Snackbar.LENGTH_LONG)
                             .setAnchorView(binding.fab)
                             .show()
+                        if (cachedSchedule.isEmpty()) binding.meetingEmpty.visibility = View.VISIBLE
                     }
                 }
             } catch (_: CancellationException) {
@@ -185,6 +187,7 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
                 Snackbar.make(binding.root, R.string.offline, Snackbar.LENGTH_LONG)
                     .setAnchorView(binding.fab)
                     .show()
+                if (cachedSchedule.isEmpty()) binding.meetingEmpty.visibility = View.VISIBLE
             }
             binding.swipeContainer.isRefreshing = false
         }
@@ -204,6 +207,11 @@ class ScheduleTabFragment : Fragment(), CoroutineScope, MainActivity.BackPressAw
 
     private fun setupViewPager() {
         val dates = vm.sessionsGroupedByDate.value!!.keys
+        if (dates.isEmpty()) {
+            binding.meetingEmpty.visibility = View.VISIBLE
+            return
+        }
+
         scheduleTabAdapter = ScheduleTabAdapter(childFragmentManager, dates.toList())
         binding.pager.adapter = scheduleTabAdapter
 
