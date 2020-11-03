@@ -24,6 +24,8 @@ enum class FeatureType(val type: String) {
     SCHEDULE("schedule"),
     @SerializedName("schedule1")
     SCHEDULE1("schedule1"),
+    @SerializedName("schedule2")
+    SCHEDULE2("schedule2"),
     @SerializedName("announcement")
     ANNOUNCEMENT("announcement"),
     @SerializedName("puzzle")

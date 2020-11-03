@@ -306,6 +306,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
                     FeatureType.FAST_PASS -> FastPassFragment()
                     FeatureType.SCHEDULE -> ScheduleTabFragment.newInstance(feature.url!!)
                     FeatureType.SCHEDULE1 -> tw.taicca.tccf.ui.schedule1.ScheduleTabFragment.newInstance(feature.url!!.replace("{token}", PreferenceUtil.getToken(mActivity) ?: ""))
+                    FeatureType.SCHEDULE2 -> tw.taicca.tccf.ui.schedule2.ScheduleTabFragment.newInstance(feature.url!!.replace("{token}", PreferenceUtil.getToken(mActivity) ?: ""))
                     FeatureType.ANNOUNCEMENT -> AnnouncementFragment.newInstance(feature.url!!)
                     FeatureType.TICKET -> MyTicketFragment()
                     FeatureType.PUZZLE -> PuzzleFragment.newInstance(feature.url!!)
@@ -380,6 +381,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             FeatureType.FAST_PASS,
             FeatureType.SCHEDULE,
             FeatureType.SCHEDULE1,
+            FeatureType.SCHEDULE2,
             FeatureType.ANNOUNCEMENT,
             FeatureType.PUZZLE -> f.url != null
             else -> true

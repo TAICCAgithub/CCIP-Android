@@ -36,7 +36,7 @@
     <string name="positive_button">確認使用</string>
     <string name="negative_button">取消</string>
 
-    <string name="my_ticket_notice">請妥善保管你的票券，僅提供給工作人員或攤位人員於活動使用</string>
+    <string name="my_ticket_notice">「 為配合防疫政策，此為您進場實名制登錄QR Code條碼，請於進出TCCF各活動場域時，將此票卷提供給現場工作人員。」</string>
 
     <string name="offline">無網路連線</string>
 
@@ -119,5 +119,5 @@
     <string name="search_sessions">搜尋議程</string>
     <string name="not_this_event">不是這場活動嗎？</string>
 
-    <string name="meeting_empty">您好，您尚未預約任何會議，\n\n內容交易會以台灣原創內容為核心，邀請您探索精彩作品，並與創作者、出版社、版權代表、電視台、影視製作單位、發行商...等進行洽商會議，發展多元的合作機會。\n\n請至：https://cct.taicca.tw/meeting\n\n預約媒合會議。</string>
+    <string name="meeting_empty">目前您尚未安排任何活動，歡迎您可以在大會時間內開始安排您喜好的論壇、展演、商務活動...等。</string>
 </resources>
