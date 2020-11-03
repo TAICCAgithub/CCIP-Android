@@ -36,7 +36,7 @@
     <string name="positive_button">確認使用</string>
     <string name="negative_button">取消</string>
 
-    <string name="my_ticket_notice">請妥善保管你的票券，僅提供給工作人員或攤位人員於活動使用</string>
+    <string name="my_ticket_notice">「 為配合防疫政策，此為您進場實名制登錄QR Code條碼，請於進出TCCF各活動場域時，將此票卷提供給現場工作人員。」</string>
 
     <string name="offline">無網路連線</string>
 

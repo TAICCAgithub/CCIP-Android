@@ -36,7 +36,7 @@
     <string name="positive_button">CONFIRM</string>
     <string name="negative_button">Cancel</string>
 
-    <string name="my_ticket_notice">Please keep your ticket as a secret. Do not share it with anyone else but the staff or event booths.</string>
+    <string name="my_ticket_notice">In order to comply with the anti-epidemic policy, this is a QR Code for you to log in with real-name registration. Please provide this ticket to the staff when you enter and exit the TCCF events.</string>
 
     <string name="offline">No network connection</string>
 
